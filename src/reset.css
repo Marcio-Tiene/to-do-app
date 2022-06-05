@@ -12,8 +12,10 @@
     display: revert;
 }
 
-body{
+body, #root{
     min-height: 100vh;
+    display: block;
+    box-sizing: border-box;
 }
 
 /* Preferred box-sizing value */
