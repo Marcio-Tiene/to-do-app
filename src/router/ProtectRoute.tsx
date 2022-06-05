@@ -8,12 +8,12 @@ export default function ProtectRoute(
   { children }: {children: ReactElement},
 ): ReactElement {
   const navigate = useNavigate();
+  const token = Cookies.get('token');
   useEffect(() => {
-    const token = Cookies.get('token');
     if (!token) {
       navigate('/login');
     }
-  }, []);
+  }, [token]);
 
   return (
     <>
