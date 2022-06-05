@@ -1,9 +1,5 @@
-import {
-  FormEventHandler, ReactElement, useCallback, useState,
-} from 'react';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import Cookies from '../services/cookies';
+import { ReactElement, useState } from 'react';
+import useUserFormHandler from '../hooks/useUserFormHandler';
 import PasswordInput from './PasswordInput';
 import TextInput from './TextInput';
 
@@ -12,66 +8,13 @@ interface IUserFormProps {
 }
 
 export default function UserForm({ type }: IUserFormProps): ReactElement {
-  const [isLoading, setIsloading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const buttonLabel = type === 'login' ? 'sign in' : 'sign up';
-
-  const navigate = useNavigate();
-
-  const onsSubmit: FormEventHandler = useCallback(async (event) => {
-    event.preventDefault();
-    setIsloading(true);
-    const formData = new FormData(event.target as HTMLFormElement);
-    const data :Record<any, any> = {};
-
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
-
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/${type}`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      mode: 'cors',
-
-      headers: {
-        Accept: '*/*',
-        'Content-Type': 'application/json',
-
-      },
-    });
-
-    if (response.ok) {
-      const { token } = await response.json();
-      Cookies.setAuth(token);
-      navigate('/');
-    }
-
-    if (!response.ok) {
-      const err = await response.json();
-      const { errors } = err;
-      if (errors) {
-        Object.keys(errors).forEach((error) => {
-          toast.error(errors[error], {
-            id: error,
-            className: 'bg-red-500',
-            iconTheme: {
-              primary: '#fff',
-              secondary: '#ff0000',
-            },
-            ariaProps: {
-              role: 'status',
-              'aria-live': 'polite',
-            },
-          });
-        });
-      }
-    }
-    setIsloading(false);
-  }, []);
+  const onSubmit = useUserFormHandler({ type, setIsLoading });
 
   return (
     <form
-      onSubmit={onsSubmit}
+      onSubmit={onSubmit}
       className="flex flex-col gap-5 items-center"
     >
       <TextInput name="name" disabled={isLoading} placeholder="ex: JohnDoe" label="username:" />
