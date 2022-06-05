@@ -4,7 +4,7 @@ import {
 import { AiOutlineLock, AiOutlineUnlock } from 'react-icons/ai';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import Cookies from '../../services/cookies';
+import Cookies from '../services/cookies';
 
 interface IUserFormProps {
   type: 'login'| 'register'

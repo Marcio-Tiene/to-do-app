@@ -10,7 +10,6 @@ export default function ProtectRoute(
   const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get('token');
-
     if (!token) {
       navigate('/login');
     }

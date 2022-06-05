@@ -31,7 +31,8 @@
           }],
           "import/no-unresolved": 0,
 
-          "import/no-extraneous-dependencies": "off"  
+          "import/no-extraneous-dependencies": "off",
+          "react/require-default-props":"off"
 
 
     }
