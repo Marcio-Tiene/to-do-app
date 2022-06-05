@@ -8,10 +8,10 @@ export default function LoginPage(): ReactElement {
   const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get('token');
-    if (!token) {
-      navigate('/login');
+    if (token) {
+      navigate('/');
     }
-  });
+  }, []);
 
   return (
     <main className="flex w-full h-[100vh] items-center justify-center bg-zinc-200">

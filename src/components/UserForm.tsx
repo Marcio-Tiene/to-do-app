@@ -1,17 +1,17 @@
 import {
   FormEventHandler, ReactElement, useCallback, useState,
 } from 'react';
-import { AiOutlineLock, AiOutlineUnlock } from 'react-icons/ai';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Cookies from '../services/cookies';
+import PasswordInput from './PasswordInput';
+import TextInput from './TextInput';
 
 interface IUserFormProps {
   type: 'login'| 'register'
 }
 
 export default function UserForm({ type }: IUserFormProps): ReactElement {
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsloading] = useState(false);
 
   const buttonLabel = type === 'login' ? 'sign in' : 'sign up';
@@ -74,46 +74,8 @@ export default function UserForm({ type }: IUserFormProps): ReactElement {
       onSubmit={onsSubmit}
       className="flex flex-col gap-5 items-center"
     >
-
-      <label
-        htmlFor="name"
-        className="flex flex-col gap-1 text-zinc-700 font-bold"
-      >
-        username:
-        <input
-          id="name"
-          type="text"
-          name="name"
-          placeholder="ex: JohnDoe"
-          className="rounded-lg  text-zinc-700 font-normal transition-all duration-300 focus:ring-teal-600 focus:border-teal-600"
-          disabled={isLoading}
-        />
-      </label>
-
-      <label htmlFor="password" className="flex flex-col gap-1 text-zinc-700 font-bold">
-        password:
-        <div className="relative">
-          <input id="password" type={showPassword ? 'text' : 'password'} name="password" className="rounded-lg text-zinc-700 font-normal transition-all duration-300 focus:ring-teal-600 focus:border-teal-600" disabled={isLoading} />
-          {showPassword
-            ? (
-              <AiOutlineUnlock
-                onClick={() => {
-                  if (!isLoading) setShowPassword((prevState) => !prevState);
-                }}
-                className="absolute transition-transform duration-300 cursor-pointer right-2 top-[0.9rem] text-teal-600 hover:scale-105"
-              />
-            )
-            : (
-              <AiOutlineLock
-                onClick={() => {
-                  if (!isLoading) setShowPassword((prevState) => !prevState);
-                }}
-                className="absolute cursor-pointer right-2 top-[0.9rem] text-teal-600 transition-transform duration-300 hover:scale-105"
-              />
-            )}
-        </div>
-
-      </label>
+      <TextInput name="name" disabled={isLoading} placeholder="ex: JohnDoe" label="username:" />
+      <PasswordInput label="password" disabled={isLoading} />
 
       <input type="submit" value={buttonLabel} className="bg-teal-600 font-bold text-white px-4 py-2 rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105  " />
 

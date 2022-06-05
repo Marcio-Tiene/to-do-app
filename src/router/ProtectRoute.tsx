@@ -13,7 +13,7 @@ export default function ProtectRoute(
     if (!token) {
       navigate('/login');
     }
-  });
+  }, []);
 
   return (
     <>
