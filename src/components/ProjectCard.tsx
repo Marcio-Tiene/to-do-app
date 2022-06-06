@@ -16,6 +16,7 @@ export default function ProjectCard({ id, name }:IProjectCardProps): ReactElemen
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(name);
+  const [taskToAdd, setTaskToAdd] = useState('');
   return (
     <article className="rounded-xl bg-zinc-100 flex flex-col w-[350px] max-w-full h-[500px] max-h-full shadow-elevation">
 
@@ -94,7 +95,22 @@ export default function ProjectCard({ id, name }:IProjectCardProps): ReactElemen
         lkasjdsakljdsakdlj
         v
       </div>
-      <h2 title={name} className="truncate">{name}</h2>
+      <hr className="w-[95%] bg-teal-600 h-[2px] mx-auto" />
+
+      <div className="h-10 flex items-center px-2 gap-1 justify-between ">
+        <TextInput name={`add-task-${name}`} inputClassName="py-1 leading-none w-100%" wrapperClassname="max-w-[80%]" value={taskToAdd} onChange={(e) => { setTaskToAdd(e.target.value); }} />
+        <button
+          type="button"
+          className="rounded-lg bg-teal-600 font-bold text-zinc-50 px-4 py-[0.05rem]"
+          onClick={() => {
+            console.log(taskToAdd);
+            setTaskToAdd('');
+          }}
+        >
+          add
+
+        </button>
+      </div>
 
     </article>
 
