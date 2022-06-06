@@ -19,10 +19,11 @@ export default function TextInput({
 }:ITextInputProps) {
   return (
     <label
+      title="Done on $"
       htmlFor={name}
       className={`flex flex-col gap-1 text-zinc-700 font-bold ${wrapperClassname}`}
     >
-      {!!label && <span title={label} className="truncate">{label}</span>}
+      {!!label && <span className="truncate">{label}</span>}
 
       <input
         id={name}

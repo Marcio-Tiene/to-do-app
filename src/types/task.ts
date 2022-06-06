@@ -4,6 +4,6 @@ export interface ITask {
   done: boolean;
   projectId: string;
   userId: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -89,6 +89,7 @@ export default function ProjectCard({ id, name }:IProjectCardProps): ReactElemen
             name={task.name}
             done={task.done}
             key={task.id}
+            updatedAt={task.updatedAt}
             onClick={() => {
               updatetask(task.id, { done: !task.done }).then(() => {
                 querClient.invalidateQueries(queryName);
@@ -108,16 +109,8 @@ export default function ProjectCard({ id, name }:IProjectCardProps): ReactElemen
             name={task.name}
             done={task.done}
             key={task.id}
-            onClick={() => {
-              updatetask(task.id, { done: !task.done }).then(() => {
-                querClient.invalidateQueries(queryName);
-              });
-            }}
-            onDeletClick={() => {
-              deleteTask(task.id).then(() => {
-                querClient.invalidateQueries(queryName);
-              });
-            }}
+            updatedAt={task.updatedAt}
+
           />
         ))}
       </div>
