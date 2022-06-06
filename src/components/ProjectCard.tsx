@@ -6,6 +6,7 @@ import { MdClose, MdDone, MdEdit } from 'react-icons/md';
 import { useQuery, useQueryClient } from 'react-query';
 import { deletProject, updateProject } from '../querys/ProjectQueries';
 import { fetchProjectTasks, postTask } from '../querys/TasksQueries';
+import Cookies from '../services/cookies';
 import { sortByCreation, sortByLastChange } from '../services/sorter';
 import { ITask } from '../types/task';
 import { OutsideClick } from './OutsiedClick';
@@ -18,10 +19,11 @@ interface IProjectCardProps{
 }
 
 export default function ProjectCard({ id, name }:IProjectCardProps): ReactElement {
+  const token = Cookies.get('token');
   const querClient = useQueryClient();
   const queryName = `tasks-${id}`;
   const fetchquery = async () => fetchProjectTasks(id);
-  const tasks = useQuery<ITask[]>(queryName, fetchquery);
+  const tasks = useQuery<ITask[]>(queryName, fetchquery, { enabled: !!token });
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(name);

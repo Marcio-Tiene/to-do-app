@@ -10,8 +10,9 @@ import { Project } from '../types/projects';
 
 export default function ProjectsPage():ReactElement {
   const name = Cookies.get('username');
+  const token = Cookies.get('token');
 
-  const projects = useQuery<Project[]>('projects', fetchProjects);
+  const projects = useQuery<Project[]>('projects', fetchProjects, { enabled: !!token });
 
   return (
     <>
