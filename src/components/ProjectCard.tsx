@@ -5,9 +5,7 @@ import { FaTrash } from 'react-icons/fa';
 import { MdClose, MdDone, MdEdit } from 'react-icons/md';
 import { useQuery, useQueryClient } from 'react-query';
 import { deletProject, updateProject } from '../querys/ProjectQueries';
-import {
-  deleteTask, fetchProjectTasks, postTask, updatetask,
-} from '../querys/TasksQueries';
+import { fetchProjectTasks, postTask } from '../querys/TasksQueries';
 import { sortByCreation, sortByLastChange } from '../services/sorter';
 import { ITask } from '../types/task';
 import { OutsideClick } from './OutsiedClick';
@@ -90,16 +88,8 @@ export default function ProjectCard({ id, name }:IProjectCardProps): ReactElemen
             done={task.done}
             key={task.id}
             updatedAt={task.updatedAt}
-            onClick={() => {
-              updatetask(task.id, { done: !task.done }).then(() => {
-                querClient.invalidateQueries(queryName);
-              });
-            }}
-            onDeletClick={() => {
-              deleteTask(task.id).then(() => {
-                querClient.invalidateQueries(queryName);
-              });
-            }}
+            queryName={queryName}
+
           />
         ))}
         {tasks?.data?.some((task) => task.done) && <h2>Done</h2>}
