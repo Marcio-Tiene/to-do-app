@@ -8,6 +8,7 @@ import { deletProject, updateProject } from '../querys/ProjectQueries';
 import {
   deleteTask, fetchProjectTasks, postTask, updatetask,
 } from '../querys/TasksQueries';
+import { sortByCreation, sortByLastChange } from '../services/sorter';
 import { ITask } from '../types/task';
 import { OutsideClick } from './OutsiedClick';
 import TaskInput from './TaskInput';
@@ -82,7 +83,7 @@ export default function ProjectCard({ id, name }:IProjectCardProps): ReactElemen
 
       <div className="flex-1 flex flex-col overflow-auto px-2 pt-2 ">
         {tasks?.data?.some((task) => !task.done) && <h2>To Do</h2>}
-        {tasks?.data?.filter((task) => !task.done).map((task) => (
+        {tasks?.data?.sort(sortByCreation).filter((task) => !task.done).map((task) => (
           <TaskInput
             id={task.id}
             name={task.name}
@@ -101,7 +102,7 @@ export default function ProjectCard({ id, name }:IProjectCardProps): ReactElemen
           />
         ))}
         {tasks?.data?.some((task) => task.done) && <h2>Done</h2>}
-        {tasks?.data?.filter((task) => task.done).map((task) => (
+        {tasks?.data?.filter((task) => task.done).sort(sortByLastChange).map((task) => (
           <TaskInput
             id={task.id}
             name={task.name}

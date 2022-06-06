@@ -5,12 +5,11 @@ import ProjectCard from '../components/ProjectCard';
 import UserMenu from '../components/UserMenu';
 import { fetchProjects } from '../querys/ProjectQueries';
 import Cookies from '../services/cookies';
+import { sortByCreation } from '../services/sorter';
 import { Project } from '../types/projects';
 
 export default function ProjectsPage():ReactElement {
   const name = Cookies.get('username');
-  // const token = Cookies.get('token');
-  // const querClient = useQueryClient();
 
   const projects = useQuery<Project[]>('projects', fetchProjects);
 
@@ -23,7 +22,7 @@ export default function ProjectsPage():ReactElement {
         <UserMenu name={name} />
       </header>
       <main className="flex w-full flex-wrap flex-1 gap-5 bg-zinc-200 px-5 pt-5">
-        {projects?.data?.map((project) => (
+        {projects?.data?.sort(sortByCreation).map((project) => (
           <ProjectCard
             key={project.id}
             name={project.name}
