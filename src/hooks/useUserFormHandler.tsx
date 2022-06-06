@@ -1,6 +1,5 @@
 import React, { FormEventHandler, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 import Cookies from '../services/cookies';
 
 interface IUseUserFormHandlerProps {
@@ -10,7 +9,6 @@ interface IUseUserFormHandlerProps {
 }
 
 export default function useUserFormHandler({ type, setIsLoading }: IUseUserFormHandlerProps) {
-  const navigate = useNavigate();
   const onSubmit: FormEventHandler = useCallback(async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -36,7 +34,7 @@ export default function useUserFormHandler({ type, setIsLoading }: IUseUserFormH
     if (response.ok) {
       const { token } = await response.json();
       Cookies.setAuth(token);
-      navigate('/');
+      window.location.href = '/';
     }
 
     if (!response.ok) {
