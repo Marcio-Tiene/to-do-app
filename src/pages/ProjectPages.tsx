@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import CreateProjectCard from '../components/CreateProjectCard';
 import ProjectCard from '../components/ProjectCard';
 import UserMenu from '../components/UserMenu';
-import { fetchProjects } from '../querys/ProjectQuerys';
+import { fetchProjects } from '../querys/ProjectQueries';
 import Cookies from '../services/cookies';
 import { Project } from '../types/projects';
 

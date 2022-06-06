@@ -128,5 +128,5 @@ export const fetchProjects = async () => {
       generalErrorHandler(errors);
     }
   }
-  return {};
+  return [];
 };

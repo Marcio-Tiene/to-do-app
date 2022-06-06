@@ -22,7 +22,8 @@ export default function TextInput({
       htmlFor={name}
       className={`flex flex-col gap-1 text-zinc-700 font-bold ${wrapperClassname}`}
     >
-      {label}
+      {!!label && <span title={label} className="truncate">{label}</span>}
+
       <input
         id={name}
         type="text"
